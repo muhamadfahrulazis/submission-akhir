@@ -38,18 +38,12 @@
     }
     if (isset($_POST['submit'])) {
         try {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $job = $_POST['job'];
-            $date = date("Y-m-d");
+           $image = $_POST['image'];
             // Insert data
-            $sql_insert = "INSERT INTO Registration (name, email, job, date) 
-                        VALUES (?,?,?,?)";
+            $sql_insert = "INSERT INTO Registration (image) 
+                        VALUES (?)";
             $stmt = $conn->prepare($sql_insert);
             $stmt->bindValue(1, $name);
-            $stmt->bindValue(2, $email);
-            $stmt->bindValue(3, $job);
-            $stmt->bindValue(4, $date);
             $stmt->execute();
         } catch(Exception $e) {
             echo "Failed: " . $e;
@@ -68,10 +62,7 @@
                 echo "<th>Job</th>";
                 echo "<th>Date</th></tr>";
                 foreach($registrants as $registrant) {
-                    echo "<tr><td>".$registrant['name']."</td>";
-                    echo "<td>".$registrant['email']."</td>";
-                    echo "<td>".$registrant['job']."</td>";
-                    echo "<td>".$registrant['date']."</td></tr>";
+                    echo "<tr><td><img src="'.$registrant['image'].'"></td>";
                 }
                 echo "</table>";
             } else {
